@@ -1,25 +1,23 @@
-import sys
-import os
-import urllib.request
 import requests
 from lxml import html
-from bs4 import BeautifulSoup
+from bs4  import BeautifulSoup
 
-url_msi  = 'https://tw.msi.com/Motherboards'
+url_msi  = 'https://tw.msi.com/Motherboards' #test_on_msi
 html     = requests.get(url_msi).text.encode('UTF-8', 'ignore')
-cname    = 'productcard card'
+soup     = BeautifulSoup(html, 'lxml')
+cname    = 'productcard card' #class_name
 
-#def grab_name():
+soup.prettify()
+
+#do_nothing_try_later
+def grab_name():
+    for mbn in soup.find_all('div', cname):
+        print(mbn.get('title'))
 
 #print out resaults
-try:
-    def output():
-        file=open('D:\\test\\output.txt', 'wb')
-        file.write(html)
-        file.close()
-except Exception as e:
-    file.write('error')
-    file.close()
+def output():
+    file=open('D:\\test\\output.json', 'wb')
+    file.write(html)
 
-
+#okay.
 output()
