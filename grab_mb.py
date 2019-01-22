@@ -12,6 +12,8 @@ if not os.path.exists(file_path + "opt"):
     os.makedirs(file_path       + "opt")
 if not os.path.exists(file_path + "msi"):
     os.makedirs(file_path       + "msi")
+if not os.path.exists(file_path + "html"):
+    os.makedirs(file_path       + "html")
 
 Msi_H310 = file=open(file_path + "./msi/H310.html", "r", encoding = "utf8")
 Msi_H370 = file=open(file_path + "./msi/H370.html", "r", encoding = "utf8")
@@ -42,7 +44,9 @@ MBList2  = sorted(set(MBList1),key=MBList1.index)
 def output():
     with open(file_path + "./opt/output.json", "w") as f:
         for item in MBList2:
-            f.write("%s\n" % item)
+            d = "https://tw.msi.com/Motherboard/"
+            item = item.split(d)[1] #get only name
+            f.write("https://tw.msi.com/Motherboard/support/" + "%s\n" % item)
 
 #okay.
 output()
