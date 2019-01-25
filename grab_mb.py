@@ -46,7 +46,8 @@ def output():
         for item in MBList2:
             d = "https://tw.msi.com/Motherboard/"
             item = item.split(d)[1] #get only name
-            f.write("https://tw.msi.com/Motherboard/support/" + "%s\n" % item)
+            opt = "https://tw.msi.com/Motherboard/support/" +  item  + "#down-bios"
+            f.write("%s\n" % opt)
 
 #okay.
 output()
