@@ -8,10 +8,11 @@ script_dir = os.path.dirname(__file__)
 opt_path   = "./"
 file_path  = os.path.join(script_dir, opt_path)
 
-url = "https://tw.msi.com/Motherboard/support/H310M-GAMING-PLUS#down-bios"
+url = "https://tw.msi.com/Motherboard/support/H310M-GAMING-PLUS"
 # trying to get the html
-results = requests.get(url)
-x = BeautifulSoup(results, "html.parser")
+r = urllib.request.urlopen(url)
+results = requests.get(url).text
+# x = BeautifulSoup(url, "html.parser")
 
 # for link in results.find_all("a", href=True): #getting links
 #     link = link.get('href')
@@ -19,7 +20,7 @@ x = BeautifulSoup(results, "html.parser")
 
 def output():
     with open(file_path + "./opt/output3.json", "w") as f:
-        for item in results: #remember to change
+        for item in r: #remember to change
             f.write("%s" % item)
 
 output()
