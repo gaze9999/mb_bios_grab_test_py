@@ -14,21 +14,29 @@ driver.get(url)
 
 #defined sth
 BdList   = ["Z390", "Z370", "H370", "B360", "H310"]
+ProSec   = ["2243", "2052", "2167", "2166", "2165"] #refence to top
 MainList = []
 PriList  = []
 
-# class GetPages():
-driver.find_element_by_xpath('//input[@value="2243"]').send_keys(Keys.SPACE)
-sleep(1)
-MainList = driver.find_elements_by_xpath('//a[@class="productcard-link"]')
+Xpth = '//input[@value="2243"]'
 
-for link in MainList:
-    order = 0 #set list
-    if order != len(MainList):
-        MainList.pop(order) #picking
-        link = link.get_attribute("href") + "\n"
-        PriList.append(link)
-        order += 1
+class GetPages:
+    driver.find_element_by_xpath(Xpth).send_keys(Keys.SPACE) #Selecting checkbox
+    sleep(3)
+    MainList = driver.find_elements_by_xpath('//a[@class="productcard-link"]') #Making a list
+
+//*[@id="mainbox2"]/form
+
+    #grab each link in list
+    for link in MainList:
+        order = 0 #set list
+        if order != len(MainList):
+            MainList.pop(order) #picking
+            link = link.get_attribute("href") + "\n" #grab board link
+            PriList.append(link)
+            order += 1
+
+
 
 def output():
     with open(file_path + "./opt/output4.json", "w") as f:
