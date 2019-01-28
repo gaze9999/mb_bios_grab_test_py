@@ -18,7 +18,7 @@ x = element.get_attribute("href")
 
 def output():
     with open(file_path + "./opt/output4.json", "w") as f:
-        for item in x: #remember to change
+        for item in x:
             f.write("%s" % item)
 
 output()
