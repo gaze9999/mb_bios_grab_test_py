@@ -19,13 +19,19 @@ MainList = []
 PriList  = []
 
 Xpth = '//input[@value="2243"]'
+# //*[@id="Intel-Z390"]
 
 class GetPages:
     driver.find_element_by_xpath(Xpth).send_keys(Keys.SPACE) #Selecting checkbox
+    driver.execute_script("window.scrollTo(0, 900)")
+    sleep(3)
+    driver.execute_script("window.scrollTo(0, 900)")
     sleep(3)
     MainList = driver.find_elements_by_xpath('//a[@class="productcard-link"]') #Making a list
 
-//*[@id="mainbox2"]/form
+# //*[@id="mainbox2"]/form/div[1]/div/div[2]/div[1]/div/h4/a
+# //*[@id="mainbox2"]/form/div[2]/div/div[2]/div[1]/div/h4/a
+# //*[@id="product_box_list"]/form/div[2]/div/div[2]/div[1]/div/h4/a
 
     #grab each link in list
     for link in MainList:
