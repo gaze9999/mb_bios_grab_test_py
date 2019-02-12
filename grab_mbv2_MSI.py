@@ -18,14 +18,15 @@ ProSec   = ["2243", "2052", "2167", "2166", "2165"] #refence to top
 MainList = []
 PriList  = []
 
-Xpth = '//input[@value="2243"]'
+Xpth     = '//input[@id="Intel-H370"]'
+# Xpth2    = '//*[@id="productfilter-section-3"]'
 # //*[@id="Intel-Z390"]
 
 class GetPages:
     driver.find_element_by_xpath(Xpth).send_keys(Keys.SPACE) #Selecting checkbox
-    driver.execute_script("window.scrollTo(0, 900)")
+    driver.execute_script("window.scrollTo(0, document.body.scrollHeight)")
     sleep(3)
-    driver.execute_script("window.scrollTo(0, 900)")
+    driver.execute_script("window.scrollTo(0, document.body.scrollHeight)")
     sleep(3)
     MainList = driver.find_elements_by_xpath('//a[@class="productcard-link"]') #Making a list
 
