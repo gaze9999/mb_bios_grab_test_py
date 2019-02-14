@@ -18,7 +18,7 @@ ProSec   = ["2243", "2052", "2167", "2166", "2165"] #refence to top
 MainList = []
 PriList  = []
 
-Xpth     = '//input[@id="Intel-H370"]'
+Xpth     = '//input[@id="Intel-Z390"]'
 # Xpth2    = '//*[@id="productfilter-section-3"]'
 # //*[@id="Intel-Z390"]
 
@@ -28,22 +28,22 @@ class GetPages:
     sleep(3)
     driver.execute_script("window.scrollTo(0, document.body.scrollHeight)")
     sleep(3)
-    MainList = driver.find_elements_by_xpath('//a[@class="productcard-link"]') #Making a list
+    a = driver.find_element_by_xpath("//a")
+    MainList = a.find_elements_by_class_name("productcard-link")
+    # MainList = driver.find_elements_by_xpath('//*[@id="product_box_list"]/*/h4/a[@class="productcard-link"]') #Making a list
 
-# //*[@id="mainbox2"]/form/div[1]/div/div[2]/div[1]/div/h4/a
-# //*[@id="mainbox2"]/form/div[2]/div/div[2]/div[1]/div/h4/a
-# //*[@id="product_box_list"]/form/div[2]/div/div[2]/div[1]/div/h4/a
+# //*[@id="mainbox2"]/form/div[1]/div/div[2]/div[1]/div/h4/a/text()
+# //*[@id="product_box_list"]/form/div[3]/div/div[2]/div[1]/div/h4/a
 
     #grab each link in list
-    for link in MainList:
-        order = 0 #set list
-        if order != len(MainList):
-            MainList.pop(order) #picking
-            link = link.get_attribute("href") + "\n" #grab board link
-            PriList.append(link)
-            order += 1
-
-
+for link in MainList:
+    order = 0 #set list
+    if order != len(MainList):
+        MainList.pop(order) #picking
+        # link += "\n"
+        link = link.get_attribute("href") + "\n" #innerHTML #grab board link
+        PriList.append(link)
+        order += 1
 
 def output():
     with open(file_path + "./opt/output4.json", "w") as f:
