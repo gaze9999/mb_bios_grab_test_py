@@ -14,14 +14,19 @@ driver.get(url)
 
 #defined sth
 BdList   = ["Z390", "Z370", "H370", "B360", "H310"]
-ProSec   = ["2243", "2052", "2167", "2166", "2165"] #refence to top
+ProSec   = ["2243", "2052", "2167", "2166", "2165"] #reference to top
 MainList = []
 PriList  = []
 
-Xpth     = '//input[@id="Intel-Z390"]'
-# Xpth2  = '//*[@id="productfilter-section-3"]'
+def BdLoop():
+    for Bd in BdList:
+        order = 0
+        if order != 3:
+            BdList.pop(order)
+            order += 1
 
 class GetPages:
+    Xpth = '//input[@id="Intel-' + Bd + '"]'
     driver.find_element_by_xpath(Xpth).send_keys(Keys.SPACE) #Selecting checkbox
     driver.execute_script("window.scrollTo(0, document.body.scrollHeight)")
     sleep(3)
