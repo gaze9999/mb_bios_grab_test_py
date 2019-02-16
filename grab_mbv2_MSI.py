@@ -19,8 +19,7 @@ MainList = []
 PriList  = []
 
 Xpth     = '//input[@id="Intel-Z390"]'
-# Xpth2    = '//*[@id="productfilter-section-3"]'
-# //*[@id="Intel-Z390"]
+# Xpth2  = '//*[@id="productfilter-section-3"]'
 
 class GetPages:
     driver.find_element_by_xpath(Xpth).send_keys(Keys.SPACE) #Selecting checkbox
@@ -28,32 +27,23 @@ class GetPages:
     sleep(3)
     driver.execute_script("window.scrollTo(0, document.body.scrollHeight)")
     sleep(3)
-    a = driver.find_element_by_xpath("//a")
-    MainList = a.find_elements_by_class_name("productcard-link")
-    # MainList = driver.find_elements_by_xpath('//*[@id="product_box_list"]/*/h4/a[@class="productcard-link"]') #Making a list
-
-# //*[@id="mainbox2"]/form/div[1]/div/div[2]/div[1]/div/h4/a/text()
-# //*[@id="product_box_list"]/form/div[3]/div/div[2]/div[1]/div/h4/a
+    MainList = driver.find_elements_by_xpath("//h4/a[@class='productcard-link']")#Making a list
 
     #grab each link in list
-for link in MainList:
-    order = 0 #set list
-    if order != len(MainList):
-        MainList.pop(order) #picking
-        # link += "\n"
-        link = link.get_attribute("href") + "\n" #innerHTML #grab board link
-        PriList.append(link)
-        order += 1
+    for link in MainList:
+        order = 0 #set list
+        # link = link.text
+        if order != len(MainList):
+            MainList.pop(order) #picking
+            # link += "\n"
+            link = link.get_attribute("href") + "\n" #innerHTML #grab board link
+            PriList.append(link)
+            order += 1
 
 def output():
     with open(file_path + "./opt/output4.json", "w") as f:
         for item in PriList:
             f.write("%s" % item)
-
-# old things
-# ChkBox = driver.find_element_by_class_name("checkbox")
-# ChkBoxChkd = driver.find_element_by_class_name("checkbox checked")
-# Z390 = driver.find_element_by_id("Intel-Z390")
 
 output()
 driver.close()
