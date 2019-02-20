@@ -17,33 +17,45 @@ BdList   = ["Z390", "Z370", "H370", "B360", "H310"]
 ProSec   = ["2243", "2052", "2167", "2166", "2165"] #reference to top
 MainList = []
 PriList  = []
+Xpth     = ""
 
-def BdLoop():
-    for Bd in BdList:
-        order = 0
-        if order != 3:
-            BdList.pop(order)
-            order += 1
+# for Bd in BdList:
+#     order = 0
+#     if order != 3:
+#         Bd = BdList.pop(order)
+#         Xpth = '//input[@id="Intel-' + Bd + '"]'
+#         order += 1
 
-class GetPages:
-    Xpth = '//input[@id="Intel-' + Bd + '"]'
-    driver.find_element_by_xpath(Xpth).send_keys(Keys.SPACE) #Selecting checkbox
-    driver.execute_script("window.scrollTo(0, document.body.scrollHeight)")
-    sleep(3)
-    driver.execute_script("window.scrollTo(0, document.body.scrollHeight)")
-    sleep(3)
-    MainList = driver.find_elements_by_xpath("//h4/a[@class='productcard-link']")#Making a list
-
+def toText():
     #grab each link in list
     for link in MainList:
         order = 0 #set list
-        # link = link.text
         if order != len(MainList):
             MainList.pop(order) #picking
-            # link += "\n"
             link = link.get_attribute("href") + "\n" #innerHTML #grab board link
             PriList.append(link)
             order += 1
+
+def SclDwn():
+    driver.execute_script("window.scrollTo(0, document.body.scrollHeight)")
+    sleep(3)
+
+class GetPages:
+    for Bd in BdList:
+        order = 0
+        if order != 1:
+            # BdList.pop(order)
+            Xpth = '//input[@id="Intel-' + BdList[order] + '"]' + "\n"
+            driver.find_element_by_xpath(Xpth).send_keys(Keys.SPACE) #Selecting checkbox
+            SclDwn()
+            SclDwn()
+            driver.execute_script("window.scrollTo(0, 0)")
+            sleep(1)
+            MainList = driver.find_elements_by_xpath("//h4/a[@class='productcard-link']")#Making a list
+            toText()
+            driver.refresh()
+            order += 1
+            sleep(3)
 
 def output():
     with open(file_path + "./opt/output4.json", "w") as f:
