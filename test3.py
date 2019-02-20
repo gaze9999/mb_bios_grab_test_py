@@ -12,7 +12,7 @@ PriList    = []
 for Bd in BdList:
     order = 0
     if order != 3:
-        BdList.pop(order)
+        BdList.pop()
         Xpth = '//input[@id="Intel-' + Bd + '"]' + str(order) + "\n"
         PriList.append(Xpth)
         order += 1
