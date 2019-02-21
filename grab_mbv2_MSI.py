@@ -44,7 +44,7 @@ class GetPages:
     for Bd in BdList:
         order = 0
         if order != 1:
-            # BdList.pop(order)
+            BdList.pop()
             Xpth = '//input[@id="Intel-' + BdList[order] + '"]' + "\n"
             driver.find_element_by_xpath(Xpth).send_keys(Keys.SPACE) #Selecting checkbox
             SclDwn()
