@@ -31,7 +31,6 @@ def toText():
     for link in MainList:
         order = 0 #set list
         if order != len(MainList):
-            MainList.pop(order) #picking
             link = link.get_attribute("href") + "\n" #innerHTML #grab board link
             PriList.append(link)
             order += 1
@@ -45,7 +44,7 @@ class GetPages:
         order = 0
         if order != 1:
             BdList.pop()
-            Xpth = '//input[@id="Intel-' + BdList[order] + '"]' + "\n"
+            Xpth = '//input[@id="Intel-' + Bd + '"]' + "\n"
             driver.find_element_by_xpath(Xpth).send_keys(Keys.SPACE) #Selecting checkbox
             SclDwn()
             SclDwn()
