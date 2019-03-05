@@ -9,8 +9,13 @@ opt_path   = "./"
 file_path  = os.path.join(script_dir, opt_path)
 
 url    = "https://tw.msi.com/Motherboard/"
-driver = webdriver.Chrome()
-driver.get(url)
+if __name__ == '__main__':
+    options = webdriver.ChromeOptions()
+    options.add_argument('--ignore-certificate-errors')
+    driver = webdriver.Chrome(chrome_options=options)
+    driver.set_window_size(1600, 900)
+    driver.get(url)
+
 
 #defined sth
 BdList   = ["Z390", "Z370", "H370", "B360", "H310"]
@@ -18,22 +23,6 @@ ProSec   = ["2243", "2052", "2167", "2166", "2165"] #reference to top
 MainList = []
 PriList  = []
 Xpth     = ""
-
-# for Bd in BdList:
-#     order = 0
-#     if order != 3:
-#         Bd = BdList.pop(order)
-#         Xpth = '//input[@id="Intel-' + Bd + '"]'
-#         order += 1
-
-def toText():
-    #grab each link in list
-    for link in MainList:
-        order = 0 #set list
-        if order != len(MainList):
-            link = link.get_attribute("href") + "\n" #innerHTML #grab board link
-            PriList.append(link)
-            order += 1
 
 def SclDwn():
     driver.execute_script("window.scrollTo(0, document.body.scrollHeight)")
@@ -43,15 +32,19 @@ class GetPages:
     for Bd in BdList:
         order = 0
         if order != 1:
-            BdList.pop()
             Xpth = '//input[@id="Intel-' + Bd + '"]' + "\n"
             driver.find_element_by_xpath(Xpth).send_keys(Keys.SPACE) #Selecting checkbox
             SclDwn()
-            SclDwn()
+            SclDwn() #scroll down to load page
+            MainList = driver.find_elements_by_css_selector("h4.card-title a.productcard-link") #Making a list
+            for link in MainList:
+                order = 0 #set list
+                if order != len(MainList):
+                    Link = link.get_attribute("href") + "\n" #innerHTML #grab board link
+                    PriList.append(Link)
+                    order += 1
             driver.execute_script("window.scrollTo(0, 0)")
             sleep(1)
-            MainList = driver.find_elements_by_xpath("//h4/a[@class='productcard-link']")#Making a list
-            toText()
             driver.refresh()
             order += 1
             sleep(3)
