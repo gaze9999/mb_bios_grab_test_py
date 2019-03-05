@@ -16,10 +16,8 @@ if __name__ == '__main__':
     driver.set_window_size(1600, 900)
     driver.get(url)
 
-
 #defined sth
 BdList   = ["Z390", "Z370", "H370", "B360", "H310"]
-ProSec   = ["2243", "2052", "2167", "2166", "2165"] #reference to top
 MainList = []
 PriList  = []
 Xpth     = ""
